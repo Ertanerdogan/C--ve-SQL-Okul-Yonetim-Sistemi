@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbOkulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TblAkademisyen">
+    <Key>
+      <PropertyRef Name="AkademisyenID" />
+    </Key>
+    <Property Name="AkademisyenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AkademisyenAd" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="AkademisyenSoyad" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="AkademisyenKullanici" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="AkademisyenSifre" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="AkademisyenDers" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblBolumler">
+    <Key>
+      <PropertyRef Name="BolumID" />
+    </Key>
+    <Property Name="BolumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BolumAd" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblDersler">
+    <Key>
+      <PropertyRef Name="DersID" />
+    </Key>
+    <Property Name="DersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DersAd" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblNotlar">
+    <Key>
+      <PropertyRef Name="NotID" />
+    </Key>
+    <Property Name="NotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotDers" Type="int" Nullable="false" />
+    <Property Name="NotOgr" Type="int" Nullable="false" />
+    <Property Name="NotVize" Type="int" Nullable="false" />
+    <Property Name="NotFinal" Type="int" Nullable="false" />
+    <Property Name="NotQuiz" Type="int" Nullable="false" />
+    <Property Name="NotOrt" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblOgrenciler">
+    <Key>
+      <PropertyRef Name="OgrID" />
+    </Key>
+    <Property Name="OgrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OgrAd" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="OgrSoyad" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="OgrNumara" Type="int" Nullable="false" />
+    <Property Name="OgrSifre" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="OgrBolum" Type="int" Nullable="false" />
+    <Property Name="OgrDurum" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_TblAkademisyen_TblDersler">
+    <End Role="TblDersler" Type="Self.TblDersler" Multiplicity="1" />
+    <End Role="TblAkademisyen" Type="Self.TblAkademisyen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDersler">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="TblAkademisyen">
+        <PropertyRef Name="AkademisyenDers" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblNotlar_TblDersler">
+    <End Role="TblDersler" Type="Self.TblDersler" Multiplicity="1" />
+    <End Role="TblNotlar" Type="Self.TblNotlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDersler">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="TblNotlar">
+        <PropertyRef Name="NotDers" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblNotlar_TblOgrenciler">
+    <End Role="TblOgrenciler" Type="Self.TblOgrenciler" Multiplicity="1" />
+    <End Role="TblNotlar" Type="Self.TblNotlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOgrenciler">
+        <PropertyRef Name="OgrID" />
+      </Principal>
+      <Dependent Role="TblNotlar">
+        <PropertyRef Name="NotOgr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblOgrenciler_TblBolumler">
+    <End Role="TblBolumler" Type="Self.TblBolumler" Multiplicity="1" />
+    <End Role="TblOgrenciler" Type="Self.TblOgrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblBolumler">
+        <PropertyRef Name="BolumID" />
+      </Principal>
+      <Dependent Role="TblOgrenciler">
+        <PropertyRef Name="OgrBolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbOkulModelStoreContainer">
+    <EntitySet Name="TblAkademisyen" EntityType="Self.TblAkademisyen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblBolumler" EntityType="Self.TblBolumler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblDersler" EntityType="Self.TblDersler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblNotlar" EntityType="Self.TblNotlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblOgrenciler" EntityType="Self.TblOgrenciler" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TblAkademisyen_TblDersler" Association="Self.FK_TblAkademisyen_TblDersler">
+      <End Role="TblDersler" EntitySet="TblDersler" />
+      <End Role="TblAkademisyen" EntitySet="TblAkademisyen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblNotlar_TblDersler" Association="Self.FK_TblNotlar_TblDersler">
+      <End Role="TblDersler" EntitySet="TblDersler" />
+      <End Role="TblNotlar" EntitySet="TblNotlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblNotlar_TblOgrenciler" Association="Self.FK_TblNotlar_TblOgrenciler">
+      <End Role="TblOgrenciler" EntitySet="TblOgrenciler" />
+      <End Role="TblNotlar" EntitySet="TblNotlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblOgrenciler_TblBolumler" Association="Self.FK_TblOgrenciler_TblBolumler">
+      <End Role="TblBolumler" EntitySet="TblBolumler" />
+      <End Role="TblOgrenciler" EntitySet="TblOgrenciler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

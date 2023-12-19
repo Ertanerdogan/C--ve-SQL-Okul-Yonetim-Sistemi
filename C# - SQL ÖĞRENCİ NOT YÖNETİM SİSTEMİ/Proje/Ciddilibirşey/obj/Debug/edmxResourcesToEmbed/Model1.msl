@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbOkulModelStoreContainer" CdmEntityContainer="DbOkulEntities">
+    <EntitySetMapping Name="TblAkademisyen">
+      <EntityTypeMapping TypeName="DbOkulModel.TblAkademisyen">
+        <MappingFragment StoreEntitySet="TblAkademisyen">
+          <ScalarProperty Name="AkademisyenID" ColumnName="AkademisyenID" />
+          <ScalarProperty Name="AkademisyenAd" ColumnName="AkademisyenAd" />
+          <ScalarProperty Name="AkademisyenSoyad" ColumnName="AkademisyenSoyad" />
+          <ScalarProperty Name="AkademisyenKullanici" ColumnName="AkademisyenKullanici" />
+          <ScalarProperty Name="AkademisyenSifre" ColumnName="AkademisyenSifre" />
+          <ScalarProperty Name="AkademisyenDers" ColumnName="AkademisyenDers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblBolumler">
+      <EntityTypeMapping TypeName="DbOkulModel.TblBolumler">
+        <MappingFragment StoreEntitySet="TblBolumler">
+          <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+          <ScalarProperty Name="BolumAd" ColumnName="BolumAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblDersler">
+      <EntityTypeMapping TypeName="DbOkulModel.TblDersler">
+        <MappingFragment StoreEntitySet="TblDersler">
+          <ScalarProperty Name="DersID" ColumnName="DersID" />
+          <ScalarProperty Name="DersAd" ColumnName="DersAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblNotlar">
+      <EntityTypeMapping TypeName="DbOkulModel.TblNotlar">
+        <MappingFragment StoreEntitySet="TblNotlar">
+          <ScalarProperty Name="NotID" ColumnName="NotID" />
+          <ScalarProperty Name="NotDers" ColumnName="NotDers" />
+          <ScalarProperty Name="NotOgr" ColumnName="NotOgr" />
+          <ScalarProperty Name="NotVize" ColumnName="NotVize" />
+          <ScalarProperty Name="NotFinal" ColumnName="NotFinal" />
+          <ScalarProperty Name="NotQuiz" ColumnName="NotQuiz" />
+          <ScalarProperty Name="NotOrt" ColumnName="NotOrt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblOgrenciler">
+      <EntityTypeMapping TypeName="DbOkulModel.TblOgrenciler">
+        <MappingFragment StoreEntitySet="TblOgrenciler">
+          <ScalarProperty Name="OgrID" ColumnName="OgrID" />
+          <ScalarProperty Name="OgrAd" ColumnName="OgrAd" />
+          <ScalarProperty Name="OgrSoyad" ColumnName="OgrSoyad" />
+          <ScalarProperty Name="OgrNumara" ColumnName="OgrNumara" />
+          <ScalarProperty Name="OgrSifre" ColumnName="OgrSifre" />
+          <ScalarProperty Name="OgrBolum" ColumnName="OgrBolum" />
+          <ScalarProperty Name="OgrDurum" ColumnName="OgrDurum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

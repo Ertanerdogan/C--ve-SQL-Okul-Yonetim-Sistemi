@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbOkulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TblAkademisyen">
+    <Key>
+      <PropertyRef Name="AkademisyenID" />
+    </Key>
+    <Property Name="AkademisyenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AkademisyenAd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AkademisyenSoyad" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AkademisyenKullanici" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AkademisyenSifre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AkademisyenDers" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TblDersler" Relationship="Self.FK_TblAkademisyen_TblDersler" FromRole="TblAkademisyen" ToRole="TblDersler" />
+  </EntityType>
+  <EntityType Name="TblBolumler">
+    <Key>
+      <PropertyRef Name="BolumID" />
+    </Key>
+    <Property Name="BolumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BolumAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TblOgrenciler" Relationship="Self.FK_TblOgrenciler_TblBolumler" FromRole="TblBolumler" ToRole="TblOgrenciler" />
+  </EntityType>
+  <EntityType Name="TblDersler">
+    <Key>
+      <PropertyRef Name="DersID" />
+    </Key>
+    <Property Name="DersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DersAd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TblAkademisyen" Relationship="Self.FK_TblAkademisyen_TblDersler" FromRole="TblDersler" ToRole="TblAkademisyen" />
+    <NavigationProperty Name="TblNotlar" Relationship="Self.FK_TblNotlar_TblDersler" FromRole="TblDersler" ToRole="TblNotlar" />
+  </EntityType>
+  <EntityType Name="TblNotlar">
+    <Key>
+      <PropertyRef Name="NotID" />
+    </Key>
+    <Property Name="NotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotDers" Type="Int32" Nullable="false" />
+    <Property Name="NotOgr" Type="Int32" Nullable="false" />
+    <Property Name="NotVize" Type="Int32" Nullable="false" />
+    <Property Name="NotFinal" Type="Int32" Nullable="false" />
+    <Property Name="NotQuiz" Type="Int32" Nullable="false" />
+    <Property Name="NotOrt" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TblDersler" Relationship="Self.FK_TblNotlar_TblDersler" FromRole="TblNotlar" ToRole="TblDersler" />
+    <NavigationProperty Name="TblOgrenciler" Relationship="Self.FK_TblNotlar_TblOgrenciler" FromRole="TblNotlar" ToRole="TblOgrenciler" />
+  </EntityType>
+  <EntityType Name="TblOgrenciler">
+    <Key>
+      <PropertyRef Name="OgrID" />
+    </Key>
+    <Property Name="OgrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OgrAd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OgrSoyad" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OgrNumara" Type="Int32" Nullable="false" />
+    <Property Name="OgrSifre" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OgrBolum" Type="Int32" Nullable="false" />
+    <Property Name="OgrDurum" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TblBolumler" Relationship="Self.FK_TblOgrenciler_TblBolumler" FromRole="TblOgrenciler" ToRole="TblBolumler" />
+    <NavigationProperty Name="TblNotlar" Relationship="Self.FK_TblNotlar_TblOgrenciler" FromRole="TblOgrenciler" ToRole="TblNotlar" />
+  </EntityType>
+  <Association Name="FK_TblAkademisyen_TblDersler">
+    <End Role="TblDersler" Type="Self.TblDersler" Multiplicity="1" />
+    <End Role="TblAkademisyen" Type="Self.TblAkademisyen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDersler">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="TblAkademisyen">
+        <PropertyRef Name="AkademisyenDers" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblOgrenciler_TblBolumler">
+    <End Role="TblBolumler" Type="Self.TblBolumler" Multiplicity="1" />
+    <End Role="TblOgrenciler" Type="Self.TblOgrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblBolumler">
+        <PropertyRef Name="BolumID" />
+      </Principal>
+      <Dependent Role="TblOgrenciler">
+        <PropertyRef Name="OgrBolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblNotlar_TblDersler">
+    <End Role="TblDersler" Type="Self.TblDersler" Multiplicity="1" />
+    <End Role="TblNotlar" Type="Self.TblNotlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDersler">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="TblNotlar">
+        <PropertyRef Name="NotDers" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblNotlar_TblOgrenciler">
+    <End Role="TblOgrenciler" Type="Self.TblOgrenciler" Multiplicity="1" />
+    <End Role="TblNotlar" Type="Self.TblNotlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOgrenciler">
+        <PropertyRef Name="OgrID" />
+      </Principal>
+      <Dependent Role="TblNotlar">
+        <PropertyRef Name="NotOgr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbOkulEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblAkademisyen" EntityType="Self.TblAkademisyen" />
+    <EntitySet Name="TblBolumler" EntityType="Self.TblBolumler" />
+    <EntitySet Name="TblDersler" EntityType="Self.TblDersler" />
+    <EntitySet Name="TblNotlar" EntityType="Self.TblNotlar" />
+    <EntitySet Name="TblOgrenciler" EntityType="Self.TblOgrenciler" />
+    <AssociationSet Name="FK_TblAkademisyen_TblDersler" Association="Self.FK_TblAkademisyen_TblDersler">
+      <End Role="TblDersler" EntitySet="TblDersler" />
+      <End Role="TblAkademisyen" EntitySet="TblAkademisyen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblOgrenciler_TblBolumler" Association="Self.FK_TblOgrenciler_TblBolumler">
+      <End Role="TblBolumler" EntitySet="TblBolumler" />
+      <End Role="TblOgrenciler" EntitySet="TblOgrenciler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblNotlar_TblDersler" Association="Self.FK_TblNotlar_TblDersler">
+      <End Role="TblDersler" EntitySet="TblDersler" />
+      <End Role="TblNotlar" EntitySet="TblNotlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblNotlar_TblOgrenciler" Association="Self.FK_TblNotlar_TblOgrenciler">
+      <End Role="TblOgrenciler" EntitySet="TblOgrenciler" />
+      <End Role="TblNotlar" EntitySet="TblNotlar" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
